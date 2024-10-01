@@ -1,6 +1,6 @@
 # Adobe Assets Selector Extension Configuration
 
-This repository contains a sample configuration that is hosted by the **App Builder** platform to extend the **Assets Selector**. It generates configuration on-the-fly based on the context provided, allowing various [Assets Selector extensions](https://www.aem.live/docs/aem-assets-sidekick-plugin#customizing-the-aem-assets-sidekick-plugin). The configuration can be context-aware or context-agnostic depending on the provided parameters.
+This repository contains a sample configuration that is hosted by the **App Builder** platform to extend the **Assets Selector**. The end point returns the configs as per the schema specified here at [Assets Selector extensions](https://www.aem.live/docs/aem-assets-sidekick-plugin#customizing-the-aem-assets-sidekick-plugin). Configuration can be generated on-the-fly based on the context provided, to enforce various filtering at the time of Assets Selector initialization. The configuration can be context-aware or context-agnostic depending on the provided parameters.
 
 ## Overview
 
