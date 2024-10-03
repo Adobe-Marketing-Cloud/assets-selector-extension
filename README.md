@@ -47,15 +47,15 @@ The following parameters are accepted by the extension configuration:
 Here’s an example of how to invoke the hosted configuration with all parameters:
 
 ```html
-https://245265-extensionconfig-stage.adobeioruntime.net/api/v1/web/extension-config/extension-config
+https://245265-extensionconfig.adobeioruntime.net/api/v1/web/extension-config/extension-config
 ```
 
 ```html
-https://245265-extensionconfig-stage.adobeioruntime.net/api/v1/web/extension-config/extension-config?webPath=snorkling
+https://245265-extensionconfig.adobeioruntime.net/api/v1/web/extension-config/extension-config?webPath=snorkling
 ```
 
 ```html
-https://245265-extensionconfig-stage.adobeioruntime.net/api/v1/web/extension-config/extension-config?webPath=snorkling&contextEndpoint=https://assets-addon.adobeaemcloud.com/tags.json
+https://245265-extensionconfig.adobeioruntime.net/api/v1/web/extension-config/extension-config?webPath=snorkling&contextEndpoint=https://assets-addon.adobeaemcloud.com/tags.json
 ```
 
 ### Response Example

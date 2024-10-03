@@ -532,7 +532,7 @@ async function main(params) {
     logger.info('Processing asset tag injection');
     logger.debug(JSON.stringify(params, null, 2));
 
-    // Validate required parameters
+    // Validate required parameters, add if any here
     const requiredParams = [];
     const errorMessage = checkMissingRequestInputs(params, requiredParams, []);
     if (errorMessage) {

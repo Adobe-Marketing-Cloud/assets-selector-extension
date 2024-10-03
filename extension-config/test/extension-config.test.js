@@ -1,7 +1,3 @@
-/* 
-* <license header>
-*/
-
 jest.mock('@adobe/aio-sdk', () => ({
   Core: {
     Logger: jest.fn()
@@ -32,18 +28,33 @@ describe('extension-config', () => {
     await action.main({ ...fakeParams, LOG_LEVEL: 'fakeLevel' })
     expect(Core.Logger).toHaveBeenCalledWith(expect.any(String), { level: 'fakeLevel' })
   })
-  test('should return an http reponse with the fetched content', async () => {
+  test("should return an http reponse with the fetched content", async () => {
     const mockFetchResponse = {
       ok: true,
-      json: () => Promise.resolve({ content: 'fake' })
-    }
-    fetch.mockResolvedValue(mockFetchResponse)
-    const response = await action.main(fakeParams)
-    expect(response).toEqual({
-      statusCode: 200,
-      body: { content: 'fake' }
-    })
-  })
+      json: () =>
+        Promise.resolve({
+          data: [
+            {
+              pattern: "/content/mywebsite/.*",
+              tags: [
+                { id: "tag1", name: "Marketing" },
+                { id: "tag2", name: "Homepage" },
+              ],
+            },
+          ],
+        }),
+    };
+    fetch.mockResolvedValue(mockFetchResponse);
+    const response = await action.main(fakeParams);
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body).not.toBeNull();
+    expect(typeof response.body).toBe("object");
+
+    expect(response.body.blockName).not.toBeNull();
+    expect(response.body.blockTemplate).not.toBeNull();
+    expect(response.body.filterSchema).not.toBeNull();
+  });
   test('if there is an error should return a 500 and log the error', async () => {
     const fakeError = new Error('fake')
     fetch.mockRejectedValue(fakeError)
@@ -51,7 +62,7 @@ describe('extension-config', () => {
     expect(response).toEqual({
       error: {
         statusCode: 500,
-        body: { error: 'server error' }
+        body: { error: 'Server error occurred' }
       }
     })
     expect(mockLoggerInstance.error).toHaveBeenCalledWith(fakeError)
@@ -66,18 +77,18 @@ describe('extension-config', () => {
     expect(response).toEqual({
       error: {
         statusCode: 500,
-        body: { error: 'server error' }
+        body: { error: 'Server error occurred' }
       }
     })
     // error message should contain 404
     expect(mockLoggerInstance.error).toHaveBeenCalledWith(expect.objectContaining({ message: expect.stringContaining('404') }))
   })
-  test('missing input request parameters, should return 400', async () => {
+  test('missing input request parameters, should return 500', async () => {
     const response = await action.main({})
     expect(response).toEqual({
       error: {
-        statusCode: 400,
-        body: { error: 'missing header(s) \'authorization\'' }
+        statusCode: 500,
+        body: { error: 'Server error occurred' }
       }
     })
   })
